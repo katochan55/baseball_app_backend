@@ -3,7 +3,7 @@ module Api
     before_action :set_team, only: %i[show update destroy]
 
     def index
-      teams = Team.order(created_at: :asc)
+      teams = Team.order(created_at: :asc).includes(:results)
       render json: { data: teams }
     end
 
