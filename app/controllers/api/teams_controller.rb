@@ -3,7 +3,10 @@ module Api
     before_action :set_team, only: %i[show update destroy]
 
     def index
-      teams = Team.order(created_at: :asc).includes(:results)
+      teams = Team.order(created_at: :asc).includes(:results).as_json(
+        only: %i[id name founded_year league],
+        include: { results: { only: %i[id team_id year rank wins_count loses_count] } },
+      )
       render json: { data: teams }
     end
 
