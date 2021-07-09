@@ -4,7 +4,7 @@ module Api
 
     def index
       teams = Team.order(created_at: :asc).includes(:results).as_json(
-        only: %i[id name founded_year league],
+        only: %i[id name founded_year league image],
         include: { results: { only: %i[id team_id year rank wins_count loses_count] } },
       )
       render json: { data: teams }

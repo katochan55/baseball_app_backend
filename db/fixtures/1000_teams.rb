@@ -1,5 +1,8 @@
 team_list = [
   { name: '読売ジャイアンツ', founded_year: 1934, league: 0 },
+  # { name: '読売ジャイアンツ', founded_year: 1934, league: 0, image: image_path('teams/logos/giants.png') },
+  # { name: '読売ジャイアンツ', founded_year: 1934, league: 0, image: Rack::Test::UploadedFile.new(Rails.root.join('app/assets/images/teams/logos/giants.png'), 'image/png') },
+  # { name: '読売ジャイアンツ', founded_year: 1934, league: 0, image: fixture_file_upload(Rails.root.join('app/assets/images/teams/logos/giants.png'), 'image/png') },
   { name: '横浜DeNAベイスターズ', founded_year: 1949, league: 0 },
   { name: '阪神タイガース', founded_year: 1935, league: 0 },
   { name: '広島東洋カープ', founded_year: 1949, league: 0 },
@@ -16,42 +19,55 @@ team_list = [
 year = 2020
 
 team_list.map do |team|
+  name = team[:name]
+  case name
+  when '読売ジャイアンツ'
+    image = File.open("./app/assets/images/teams/logos/giants.png")
+    rank, wins_count, loses_count = 1, 67, 45
+  when '阪神タイガース'
+    image = File.open("./app/assets/images/teams/logos/tigers.png")
+    rank, wins_count, loses_count = 2, 60, 53
+  when '中日ドラゴンズ'
+    image = File.open("./app/assets/images/teams/logos/dragons.png")
+    rank, wins_count, loses_count = 3, 60, 55
+  when '横浜DeNAベイスターズ'
+    image = File.open("./app/assets/images/teams/logos/baystars.png")
+    rank, wins_count, loses_count = 4, 56, 58
+  when '広島東洋カープ'
+    image = File.open("./app/assets/images/teams/logos/carp.png")
+    rank, wins_count, loses_count = 5, 52, 56
+  when '東京ヤクルトスワローズ'
+    image = File.open("./app/assets/images/teams/logos/swallows.png")
+    rank, wins_count, loses_count = 6, 41, 69
+  when '福岡ソフトバンクホークス'
+    image = File.open("./app/assets/images/teams/logos/hawks.png")
+    rank, wins_count, loses_count = 1, 73, 42
+  when '千葉ロッテマリーンズ'
+    image = File.open("./app/assets/images/teams/logos/marines.png")
+    rank, wins_count, loses_count = 2, 60, 57
+  when '埼玉西武ライオンズ'
+    image = File.open("./app/assets/images/teams/logos/lions.png")
+    rank, wins_count, loses_count = 3, 58, 58
+  when '東北楽天ゴールデンイーグルス'
+    image = File.open("./app/assets/images/teams/logos/eagles.png")
+    rank, wins_count, loses_count = 4, 55, 57
+  when '北海道日本ハムファイターズ'
+    image = File.open("./app/assets/images/teams/logos/fighters.png")
+    rank, wins_count, loses_count = 5, 53, 62
+  when 'オリックス・バファローズ'
+    image = File.open("./app/assets/images/teams/logos/buffaloes.png")
+    rank, wins_count, loses_count = 6, 45, 68
+  end
+
   Team.seed(
     :name,
     {
       name: team[:name],
       founded_year: team[:founded_year],
       league: team[:league],
+      image: image,
     }
   )
-
-  name = team[:name]
-  case name
-  when '読売ジャイアンツ'
-    rank, wins_count, loses_count = 1, 67, 45
-  when '阪神タイガース'
-    rank, wins_count, loses_count = 2, 60, 53
-  when '中日ドラゴンズ'
-    rank, wins_count, loses_count = 3, 60, 55
-  when '横浜DeNAベイスターズ'
-    rank, wins_count, loses_count = 4, 56, 58
-  when '広島東洋カープ'
-    rank, wins_count, loses_count = 5, 52, 56
-  when '東京ヤクルトスワローズ'
-    rank, wins_count, loses_count = 6, 41, 69
-  when '福岡ソフトバンクホークス'
-    rank, wins_count, loses_count = 1, 73, 42
-  when '千葉ロッテマリーンズ'
-    rank, wins_count, loses_count = 2, 60, 57
-  when '埼玉西武ライオンズ'
-    rank, wins_count, loses_count = 3, 58, 58
-  when '東北楽天ゴールデンイーグルス'
-    rank, wins_count, loses_count = 4, 55, 57
-  when '北海道日本ハムファイターズ'
-    rank, wins_count, loses_count = 5, 53, 62
-  when 'オリックス・バファローズ'
-    rank, wins_count, loses_count = 6, 45, 68
-  end
 
   TeamResult.seed(
     :team_id, :year,
