@@ -64,3 +64,46 @@ team_list.map do |team|
     }
   )
 end
+
+year = 2019
+
+team_list.map do |team|
+  name = team[:name]
+  case name
+  when '読売ジャイアンツ'
+    rank, wins_count, loses_count = 1, 77, 64
+  when '阪神タイガース'
+    rank, wins_count, loses_count = 3, 69, 68
+  when '中日ドラゴンズ'
+    rank, wins_count, loses_count = 5, 68, 73
+  when '横浜DeNAベイスターズ'
+    rank, wins_count, loses_count = 2, 71, 69
+  when '広島東洋カープ'
+    rank, wins_count, loses_count = 4, 70, 70
+  when '東京ヤクルトスワローズ'
+    rank, wins_count, loses_count = 6, 59, 82
+  when '福岡ソフトバンクホークス'
+    rank, wins_count, loses_count = 2, 76, 62
+  when '千葉ロッテマリーンズ'
+    rank, wins_count, loses_count = 4, 69, 70
+  when '埼玉西武ライオンズ'
+    rank, wins_count, loses_count = 1, 80, 62
+  when '東北楽天ゴールデンイーグルス'
+    rank, wins_count, loses_count = 3, 71, 68
+  when '北海道日本ハムファイターズ'
+    rank, wins_count, loses_count = 5, 65, 73
+  when 'オリックス・バファローズ'
+    rank, wins_count, loses_count = 6, 61, 75
+  end
+
+  TeamResult.seed(
+    :team_id, :year,
+    {
+      team_id: Team.find_by!(name: name).id,
+      year: year,
+      rank: rank,
+      wins_count: wins_count,
+      loses_count: loses_count,
+    }
+  )
+end
